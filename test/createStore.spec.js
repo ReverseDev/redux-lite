@@ -12,7 +12,7 @@ describe('createStore():', function() {
     expect(store.getState).toExist();
   });
 
-  context('when the reducer is not an function', function() {
+  context('when the reducer is not a function', function() {
     it('should throw an error', function() {
       expect(function() {
         createStore();
