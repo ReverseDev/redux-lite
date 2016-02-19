@@ -63,5 +63,57 @@ describe('Testing real app', function() {
       text: 'New todo'
     }]);
     expect(store.getState().filter).toEqual('ALL_FILTERS');
-  })
+  });
+});
+
+describe('Testing asyn app', function() {
+  it('should looks good', function() {
+    function requestTodo(text) {
+      return {
+        type: 'REQUEST_TODO',
+        text: text
+      };
+    }
+    function resolveTodo(todo) {
+      return {
+        type: 'RESOLVE_TODO',
+        todo: todo
+      };
+    }
+
+    function postTodo(text) {
+      return function({dispatch, getState}) {
+        dispatch(requestTodo(text));
+        setTimeout(function() {
+          let todo = {
+            id: 42,
+            text: text,
+            completed: false
+          };
+
+          dispatch(resolveTodo(todo));
+        }, 300);
+      }
+    }
+
+    function reducer(state={}, action) {
+      switch(action.type) {
+        case 'REQUEST_TODO':
+          console.log(`Posting Todo: ${action.text}...`);
+          return {
+            text: action.text,
+            completed: false
+          };
+        case 'RESOLVE_TODO':
+          console.log(`Todo ${action.todo.id} received!`);
+          return action.todo;
+        default:
+          return state;
+      }
+    }
+
+    let store = createStore(reducer);
+
+    store.dispatch(postTodo('New Todo'));
+  });
 });
