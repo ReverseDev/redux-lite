@@ -19,7 +19,7 @@ export default function createStore(reducer, initialState) {
       return dispatch(action({dispatch, getState}));
     }
 
-    currentReducer(currentState, action);
+    currentState = currentReducer(currentState, action);
 
     listeners.forEach((listener) => listener());
   }

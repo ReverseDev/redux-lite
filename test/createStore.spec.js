@@ -63,6 +63,24 @@ describe('createStore():', function() {
       });
     });
 
+    it('should apply the reducer function into current state', function() {
+      function reducer(state, action) {
+        if (action.type === 'TESTING') {
+          return 'I am the new state';
+        } else {
+          return state;
+        }
+      }
+
+      let store = createStore(reducer);
+
+      store.dispatch({
+        type: 'TESTING'
+      });
+
+      expect(store.getState()).toBe('I am the new state');
+    });
+
     it('should call all the current listeners', function() {
       let store = createStore(noop);
 
