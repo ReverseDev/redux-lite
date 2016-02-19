@@ -15,10 +15,8 @@ export default function createStore(reducer, initialState) {
   }
 
   function dispatch(action) {
-    if (!action) return;
-
     if (typeof action === 'function') {
-      return dispatch(action({dispatch, getState}));
+      return action({dispatch, getState});
     }
 
     currentState = currentReducer(currentState, action);

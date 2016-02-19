@@ -115,5 +115,9 @@ describe('Testing asyn app', function() {
     let store = createStore(reducer);
 
     store.dispatch(postTodo('New Todo'));
+
+    store.subscribe(() => {
+      console.log(store.getState());
+    });
   });
 });
