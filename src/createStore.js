@@ -15,6 +15,8 @@ export default function createStore(reducer, initialState) {
   }
 
   function dispatch(action) {
+    if (!action) return;
+
     if (typeof action === 'function') {
       return dispatch(action({dispatch, getState}));
     }
@@ -22,6 +24,8 @@ export default function createStore(reducer, initialState) {
     currentState = currentReducer(currentState, action);
 
     listeners.forEach((listener) => listener());
+
+    return action;
   }
 
   function subscribe(listener) {
