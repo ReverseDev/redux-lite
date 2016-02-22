@@ -2,9 +2,10 @@
   "name": "redux-lite",
   "version": "0.0.1",
   "description": "A lite version of Redux",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist",
+    "clean": "rimraf lib",
+    "build": "npm run clean && babel src --out-dir lib",
     "test": "mocha --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch --reporter nyan"
   },
@@ -30,6 +31,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
     "babel-register": "^6.5.2",
     "expect": "^1.14.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "rimraf": "^2.5.2"
   }
 }
